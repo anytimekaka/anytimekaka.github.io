@@ -44,8 +44,7 @@ header-img: "img/post-bg-06.jpg"
 
 示例：
 
-<img src="http://imagekaka.qiniudn.com/示例数据库的表关系.png" alt="示例数据库结构图" align="middle"/>
-<span class="caption text-muted">表关系</span>
+<img src="http://imagekaka.qiniudn.com/示例数据库的表关系.png" alt="示例数据库结构图"/>
 
     Select A1,A2,......An from R1,R2,......Rm Where P;
     Select distinct branch_name from loan;
