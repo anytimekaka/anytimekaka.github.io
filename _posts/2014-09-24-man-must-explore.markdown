@@ -7,15 +7,20 @@ author:     "anytimekaka"
 header-img: "img/post-bg-06.jpg"
 ---
 
-###数据定义
-####基本类型：
+##数据类型
 
-* char(n)：char是定长的，也就是当你输入的字符小于你指定的数目时，char(8)，你输入的字符小于8时，它会再后面补空值。当你输入的字符大于指定的数时，它会**截取**超出的字符。
-* varchar(n)：存储变长数据，但存储效率没有char高。如果一个字段可能的值是不固定长度的，我们只知道它不可能超过10个字符，把它定义为 VARCHAR(10)是最合算的。**VARCHAR类型的实际长度是它的值的实际长度+1**。为什么“+1”呢？这一个字节用于保存**实际使用了多大的长度**。从空间上考虑，用varchar合适；从效率上考虑，用char合适，关键是根据实际情况找到权衡点。
-* Numeric(p,d)：定点数，精度由用户指定。有p位数字，其中d位数字在小数点后面。
-* float(n)：精度至少位n位的浮点数
+数据库的数据类型有很多，各个数据库的实现也有所不同，这里只列出常用的几个类型，并做详细说明（以MySQL数据库为例）。
 
-####DDL Data Definition Language
+1. char(n)：char是定长的，也就是当你输入的字符小于你指定的数目时，char(8)，你输入的字符小于8时，它会再后面补空值。当你输入的字符大于指定的数时，它会**截取**超出的字符。最多存储255个字符。
+2. varchar(n)：存储变长数据，但存储效率没有char高。如果一个字段可能的值是不固定长度的，我们只知道它不可能超过10个字符，把它定义为 VARCHAR(10)是最合算的。**VARCHAR类型的实际长度是它的值的实际长度+1**。为什么“+1”呢？这一个字节用于保存**实际使用了多大的长度**。从空间上考虑，用varchar合适；从效率上考虑，用char合适，关键是根据实际情况找到权衡点。最多存储255个字符。
+3. int(n)：n表示最大位数。
+4. double(n,d)：n表示最大位数，d表示小数点后面的最大位数。
+5. decimal(n,d)：作为字符串存储的double类型。
+6. date：格式"YYYY-MM-DD"
+
+关于更多SQL数据类型的描述，可参考<a href="http://www.w3school.com.cn/sql/sql_datatypes.asp">这里</a>
+
+##DDL
     create database database_name
     create table r(A1 D1,A2 D2,......An Dn,完整性约束1,......,完整性约束k);
     Drop table r;
@@ -23,15 +28,10 @@ header-img: "img/post-bg-06.jpg"
     create view ; alter view ; delete view;
     truncate table;
 
->**truncate和delete的区别**
->* delete from后面可以写条件，truncate不可以。 
->* delete from记录是一条条删的，所删除的每行记录都会进日志，而truncate一次性删掉整个页，因此日至里面只记录页释放，简言之，delete from更新日志，truncate基本不，所用的**事务日志**空间较少。
->* delete from删空表后，会保留一个空的页，truncate在表中不会留有任何页。
->* 当使用行锁执行 DELETE 语句时，将锁定表中各行以便删除。truncate始终锁定表和页，而不是锁定各行。 
->* 如果有identity产生的自增id列，delete from后仍然从上次的数开始增加，即种子不变，而truncate后，种子会恢复初始。
->* truncate不会触发delete的触发器，因为truncate操作不记录各个行删除。
+>**truncate和delete的区别：**
+>delete from后面可以写条件，truncate不可以；delete from记录是一条条删的，所删除的每行记录都会进日志，而truncate一次性删掉整个页，因此日至里面只记录页释放，简言之，delete from更新日志，truncate基本不，所用的**事务日志**空间较少；delete from删空表后，会保留一个空的页，truncate在表中不会留有任何页；当使用行锁执行 DELETE 语句时，将锁定表中各行以便删除，truncate始终锁定表和页，而不是锁定各行；如果有identity产生的自增id列，delete from后仍然从上次的数开始增加，即种子不变，而truncate后，种子会恢复初始;truncate不会触发delete的触发器，因为truncate操作不记录各个行删除。
 
-####DML Data Manipulation Language
+##DML
     Delete table r;删除关系中所有的元组
     INSERT INTO table_name VALUES (值1, 值2,....);
     INSERT INTO table_name (列1, 列2,...) VALUES (值1, 值2,....);
@@ -41,7 +41,7 @@ header-img: "img/post-bg-06.jpg"
 
 示例数据库结构：
 
-![表关系图](http://imagekaka.qiniudn.com/示例数据库的表关系.png "示例数据库结构")
+<img src="http://imagekaka.qiniudn.com/示例数据库的表关系.png" alt="示例数据库结构" style="display:inline;text-align:center"></img>
 
     Select A1,A2,......An from R1,R2,......Rm Where P;
     Select distinct branch_name from loan;
