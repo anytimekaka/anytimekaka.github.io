@@ -246,6 +246,7 @@ SQL中**聚集函数不能进行组合使用**，因而使用max(avg(...))是不
 
 ##连接关系
 
+连接关系是SQL的重点，面试时常有考察。
 
 <table>
 <tr><th>连接类型</th><th>连接条件 </th></tr>
@@ -258,11 +259,9 @@ SQL中**聚集函数不能进行组合使用**，因而使用max(avg(...))是不
 
 关键字inner和outer是可选的。
 对于外连接，连接条件是必须的；但是对于内连接，连接条件则是可选的（如果省略，将产生笛卡尔积）。On和using出现在连接表达式的末尾。
-
-
 为了清楚地说明连接关系，这里我们在表中插入几条测试数据，如下所示：
 
-**loan表**
+loan表：
 
 <table>
 <tr><th>loan_number</th><th>branch_name</th><th>amount</th></tr>
@@ -271,7 +270,7 @@ SQL中**聚集函数不能进行组合使用**，因而使用max(avg(...))是不
 <tr><td>L-260</td><td>Perryridge</td><td>1700</td></tr>
 </table>
 
-**borrower表**
+borrower表
 
 <table>
 <tr><th>customer_name</th><th>loan_number</th></tr>
@@ -280,10 +279,11 @@ SQL中**聚集函数不能进行组合使用**，因而使用max(avg(...))是不
 <tr><td>Hayes</td><td>L-230</td></tr>
 </table>
 
+内连接
 
-    //内连接
     loan inner join borrower on loan.loan_number = borrower.loan_number;
     
+结果：
 
 <table>
 <tr><th>loan_number</th><th>branch_name</th><th>amount</th><th>customer_name</th><th>loan_number</th></tr>
@@ -293,10 +293,11 @@ SQL中**聚集函数不能进行组合使用**，因而使用max(avg(...))是不
 
 所得结果的属性由左侧关系的属性后跟右侧关系的属性构成。 
 
+左外连接
 
-    //左外连接
     loan left outer join borrower on loan.loan_number = borrower.loan_number;
 
+结果：
 
 <table>
 <tr><th>loan_number</th><th>branch_name</th><th>amount</th><th>customer_name</th><th>loan_number</th></tr>
@@ -305,12 +306,13 @@ SQL中**聚集函数不能进行组合使用**，因而使用max(avg(...))是不
 <tr><td>L-260</td><td>Perryridge</td><td>1700</td><td>null</td><td>null</td></tr>
 </table>
 
-左外连接：先计算内连接的结果，然后，对左边关系（loan）中每个在内连接时与右边关系（borrower）中的任何元组都不匹配的元组t，向结果中加入一个元组r，r左边关系属性值为t，其他属性为null。
+先计算内连接的结果，然后，对左边关系（loan）中每个在内连接时与右边关系（borrower）中的任何元组都不匹配的元组t，向结果中加入一个元组r，r左边关系属性值为t，其他属性为null。
 
+自然连接
 
-    //自然连接
-    loan natural inner join borrower;
+	loan natural inner join borrower;
 
+结果：
 
 <table>
 <tr><th>loan_number</th><th>branch_name</th><th>amount</th><th>customer_name</th></tr>
@@ -324,9 +326,9 @@ SQL中**聚集函数不能进行组合使用**，因而使用max(avg(...))是不
 
 全连接是左外连接和右外连接的组合
 
+	loan full outer join borrower using (loan_number);
 
-    loan full outer join borrower using (loan_number);
-
+结果：
 
 <table>
 <tr><th>loan_number</th><th>branch_name</th><th>amount</th><th>customer_name</th></tr>
