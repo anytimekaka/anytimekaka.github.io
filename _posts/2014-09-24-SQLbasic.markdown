@@ -2,7 +2,7 @@
 layout:     post
 title:      "SQL简明教程"
 subtitle:   "关于SQL的简单介绍，对数据库基本类型、DDL、DML、DQL语法的说明；重点关注查询语句中的嵌套子查询、集合运算、聚集函数、连接关系"
-date:       2015-02-24 22:30:00
+date:       2014-09-24 22:30:00
 author:     "anytimekaka"
 header-img: "img/post-bg-06.jpg"
 ---
