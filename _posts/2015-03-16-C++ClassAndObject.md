@@ -58,5 +58,37 @@ main函数：
 
 结果分析：在将Rectangle(3,3)赋值给rect1之后，会马上删除掉临时变量，我们可以看到析构函数被调用了一次。后面析构函数的调用顺序说明了，局部变量是被放在栈中，先实例化的后销毁。
 
+#const函数
+
+在说const函数是什么之前，我们设想以下一种情况：
+
+	//我们给Rectangle类定义一个成员函数，计算矩形的面积
+	int Rectangle::area(){
+		return width*height;
+	}
+
+	//main函数
+	const Rectangle rect(1,1);
+	rect.area();	//编译不通过
+
+单我在编译器中写下这样的代码之后，有个这样的错误提示：
+
+<img src="http://anytimekaka.github.io/img/postimg/201503161515.png"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
