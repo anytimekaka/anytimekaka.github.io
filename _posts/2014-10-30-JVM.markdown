@@ -50,3 +50,4 @@ header-img: "img/post-bg-02.jpg"
 
 1. 虚拟机默认采用CAS配上**失败重试**的方式
 2. 把内存分配的动作按照线程划分在不同的空间之中进行——每个线程在Java堆中**预先分配一小块内存**（叫本地线程分配缓存 Thread Local Allocation Buffer TLAB）。这样哪个线程需要分配内存，就在哪个线程的TLAB上分配。可通过-XX:+/-UseTLAB来设定是否使用TLAB
+
