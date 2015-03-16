@@ -54,5 +54,9 @@ main函数：
 
 由于自定义了带参数的构造函数，没有了不带参数的默认构造函数，所以rect5不能编译通过。删除这一行之后，运行结果如下图：
 
-<img src="anytimekaka.github.io/img/postimg/201503161446.png"/>
+<img src="http://anytimekaka.github.io/img/postimg/201503161446.png"/>
+
+结果分析：在将Rectangle(3,3)赋值给rect1之后，会马上删除掉临时变量，我们可以看到析构函数被调用了一次。后面析构函数的调用顺序说明了，局部变量是被放在栈中，先实例化的后销毁。
+
+
 
