@@ -71,17 +71,37 @@ main函数：
 	const Rectangle rect(1,1);
 	rect.area();	//编译不通过
 
-单我在编译器中写下这样的代码之后，有个这样的错误提示：
+当我在编译器中写下这样的代码之后，有个这样的错误提示：
 
 <img src="http://anytimekaka.github.io/img/postimg/201503161515.png"/>
 
+其实错误很容易理解：rect对象是const类型，不能确保在调用area()时不改变rect。解决方法就是如下声明：
 
+	int area() const;
 
+	int Rectangle::area() const{
+		return width*height;
+	}
 
+#对象数组
 
+我在阅读《C++ Primer》这本书时，看到这么一段：
 
+>初始化对象数组的方案是，首先使用默认构造函数创建数组元素，然后花括号中的构造函数会创建临时对象，然后将临时对象的内容复制到相应的元素中。因此，要创建类对象数组，这个类必须有默认构造函数。P369
 
+但是在实际应用中，情况并不是这样。
 
+	Rectangle rectArr[2] = {
+		Rectangle(2, 2),
+		Rectangle(3, 3)
+	};		//没有问题
+
+	Rectangle rectArr[3] = {
+		Rectangle(2, 2),
+		Rectangle(3, 3)
+	};		//编译错误
+
+重新添加了默认构造函数之后，发现[2]数组声明过程中没有调用默认构造函数，[3]数组声明调用了一次。
 
 
 
