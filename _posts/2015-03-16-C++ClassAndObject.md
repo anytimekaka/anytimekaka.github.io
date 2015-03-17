@@ -175,5 +175,5 @@ main函数：
 
 运行结果：
 
-<img src="http://anytimekaka.github.io/img/postimg/201503171902.png"/>
+<img src="http://anytimekaka.github.io/img/postimg/201503171902.PNG"/>
 
