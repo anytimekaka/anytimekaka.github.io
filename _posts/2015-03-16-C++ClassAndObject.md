@@ -103,12 +103,77 @@ main函数：
 
 重新添加了默认构造函数之后，发现[2]数组声明过程中没有调用默认构造函数，[3]数组声明调用了一次。
 
+#运算符重载与友元函数
 
+这里先举两个运算符重载的例子，然后说明为什么需要友元函数。
 
+第一个：
 
+	//运算符 + 
+	Rectangle Rectangle::operator+(const Rectangle & rect) const{
+		Rectangle result;
+		result.height = this->height + rect.height;
+		result.width = this->width + rect.width;
+		return result;
+	}
 
+	//使用
+	Rectangle rect1(1, 1);
+	Rectangle rect2(1, 1);
+	std::cout << (rect1 + rect2).area()<<std::endl;
+	//本质rect1.operator+(rect2).area()
 
+第二个：
 
+	
+	Rectangle Rectangle::operator*(int arg) const{
+		Rectangle result;
+		result.height = this->height * arg;
+		result.width = this->width * arg;
+		return result;
+	}
 
+	//使用情景一
+	Rectangle rect1(2, 2);
+	std::cout << (rect1 * 2).area()<<std::endl;
+	//本质rect1.operator+(2).area()
 
+	//使用情景二
+	Rectangle rect1(2, 2);
+	std::cout << (2 * rect1).area()<<std::endl;
+	//由于没有对int进行 * 重载（也不能对基本类型进行重载），不能这么使用
+
+那么如何实现情景二中的应用呢？答案就是使用友元函数。
+
+	//声明
+	friend Rectangle operator*(int arg, const Rectangle & rect);
+
+	//定义
+	Rectangle operator*(int arg, const Rectangle & rect){
+		Rectangle result;
+		result.height = rect.height * arg;
+		result.width = rect.width * arg;
+		return result;
+	}
+	//注：千万不要写成Rectangle Rectangle::operator*....
+	//因为此处定义的友元函数并不是类的成员函数
+
+友元函数不是类的成员函数，但是可以在访问到类的成员变量，这是其特别的地方。
+
+典型使用示例，与cout结合，重载<<
+
+	friend std::ostream & operator<<(std::ostream & out, const Rectangle & rect);
+
+	std::ostream & operator<<(std::ostream & out, const Rectangle & rect){
+		out << "(" << rect.height << "," << rect.width << ")" << std::endl;
+		return out;
+	}
+
+	Rectangle rect1(1, 1);
+	Rectangle rect2(2, 2);
+	std::cout << "rect1 is " << rect1 << "rect2 is " << rect2;
+
+运行结果：
+
+<img src="http://anytimekaka.github.io/img/postimg/201503171902.png"/>
 
