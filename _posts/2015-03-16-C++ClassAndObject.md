@@ -13,6 +13,14 @@ header-img: "img/post-bg-03.jpg"
 
 插一句：结构和类的不同，在C++中表现在于：类的默认成员为private，结构是public——《C++ Primer》
 
+#目录
+
+* 构造函数与析构函数
+* const函数
+* 对象数组
+* 运算符重载与友元函数
+* 类的自动转换和强制类型转换
+
 #构造函数与析构函数
 
 构造函数与析构函数的调用时间，其实相对容易理解。构造函数在初始化对象的时候会调用到，析构函数在对象被销毁时调用。
@@ -177,3 +185,44 @@ main函数：
 
 <img src="http://anytimekaka.github.io/img/postimg/201503171902.PNG"/>
 
+#类的自动转换和强制类型转换
+
+自动转换：
+
+	int i = 1.2;
+	double j = 9;
+
+C++不会自动转换不兼容的类型，所以如果要使用自动类型转换这一特性，需要用户自己来定义。
+
+我们以之前例子中的Rectangle类来说明如何实现不同类型间的**自动类型转换**：
+
+	//定义构造函数，用于定义正方形，使用一个int形参。
+	Rectangle(int hw){
+		this->height = hw;
+		this->width = hw;
+	}
+	
+	//自动转换
+	Rectangle rect = 1;
+
+例子中定义的构造函数，可以将一个int型转换为Rectangle类型。由这里可以看出，只有接受一个参数的构造函数才能作为转换函数。
+
+关键词`explicit`用来说明，函数只能用于显示转换。
+
+	explicit Rectangle(int hw);
+
+	//显式强制类型转换，上一个例子中的声明编译不能通过
+	Rectangle rect = (Rectangle) 6;
+
+构造函数可以用于将int转换为Rectangle，但是Rectangle怎样自动转换成int呢？（其实这种转换好不现实，汗。。。这里只用于说明转换函数）
+
+	//转换函数：operator typeName();
+	operator int() const;
+	Rectangle::operator int() const {
+		return this->height;
+	}
+	//请注意：转换函数没有返回类型，operator并不是返回类型；同时不能有参数
+
+	Rectangle rect = 1;
+	int i = rect;				//隐式转换
+	int i = Rectangle(rect);	//显式转换
