@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "C++对象初始化与函数调用"
+title:      "C++关键知识点梳理"
 subtitle:   "构造函数与析构函数在何时调用，函数定义中的形参为何选择引用类型，const关键字的用法等"
 date:       2015-03-16 10:51:00
 author:     "anytimekaka"
@@ -240,6 +240,89 @@ C++不会自动转换不兼容的类型，所以如果要使用自动类型转�
 	int StringBad::number = 0;
 
 类声明位于头文件中，程序可能在多个地方包含头文件，如果在头文件中进行初始化，就会出现多个初始化语句，从而引发错误。但是，如果静态成员是const整数类型，或者枚举型，则可以在类声明中进行初始化。（在编译时就进行了初始化替换）
+
+#特殊成员函数
+
+构造函数和析构函数是特殊成员函数，如果声明一个类，会默认包含这两个函数。那么是否还有其他的特殊成员函数呢？
+
+先看下面这个栗子有没有问题：
+
+	private:
+		char * str;
+		int len;
+		static int number;
+
+	int StringBad::number = 0;
+	StringBad::StringBad(const char * s){
+		len = std::strlen(s) + 1;
+		str = new char[len];
+		std::strcpy(str, s);
+		number++;
+		std::cout << number << " :\"" << str << "\" String object created." << std::endl;
+	}
+	StringBad::~StringBad(){
+		std::cout << "\"" << str << "\" String object deleted." << std::endl;
+		--number;
+		std::cout << number << " objects left." << std::endl;
+	}
+
+上面是一个类似String类的一个类定义，静态成员变量number用于保存对象的声明个数。现在有下面这种使用情形：
+
+	StringBad bad1("bad one");
+	StringBad bad2("bad two");
+	StringBad bad3 = bad1;
+
+运行结果如下图：
+
+<img src="http://anytimekaka.github.io/img/postimg/201503231431.png"/>
+
+从图中我们看到bad1被删除了2次，导致number值变成了1。主要原因是这一句：`StringBad bad3 = bad1;`，执行过程中，**赋值运算符和复制构造函数**被调用。
+
+特殊成员函数：
+
+* 默认构造函数/析构函数
+* **复制构造函数**
+* **赋值运算符**
+* 地址运算符
+* 移动构造函数
+* 移动赋值运算符
+
+特殊成员函数都是自动定义的。下面对这几个特殊成员函数作详细介绍，默认构造函数和析构函数就直接跳过了，这个很简单，相信大家都清楚。
+
+##复制构造函数
+
+上面的那一句赋值语句等效于：
+
+	StringBad bad3 = new StringBad(bad1);
+
+此处的复制构造函数的原型：
+
+	StringBad(const StringBad &);
+
+当新建一个对象并将其初始化为同类现有对象时，复制构造函数会被调用。
+
+一. 以下4种声明都会调用复制构造函数：
+
+
+	StringBad bad3 = StringBad(bad1);
+	StringBad bad3(bad1);
+	StringBad bad3 = bad1;
+	StringBad * bad3 = new StringBad(bad1);
+
+二. 当程序生成对象副本时，编译器也会调用复制构造函数：
+
+	void callStr(StringBad bad){
+		std::cout << bad <<endl;
+	}
+
+	callStr(bad1);
+
+当程序调用callStr函数时，会创建一个bad1对象的副本，这时会调用复制构造函数。
+
+##赋值运算符
+##地址运算符
+##移动构造函数
+##移动赋值运算符
 
 #动态内存分配
 
