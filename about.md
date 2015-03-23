@@ -9,3 +9,4 @@ header-img: "img/about-bg.jpg"
 
 王贵生 / 男
 1991-05-10
+Email：anytimekaka@163.com / gswang001@gmail.com
