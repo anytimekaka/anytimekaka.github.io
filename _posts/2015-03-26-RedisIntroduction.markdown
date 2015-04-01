@@ -10,17 +10,18 @@ header-img: "img/post-bg-04.jpg"
 #目录
 
 * 什么是Redis
-* 为什么需要Redis
-* Redis有哪些特点
+* Redis有什么特点
 * Redis的安装
 * 数据结构
 * Publication/Subscription
 * Configuration
 * 参考
 
-#什么是Redis
+#Redis是什么
 
 简单来说，Redis是一种数据库，但是不是我们通常用的MySQL或者Oracle一类的**关系型数据库**。Redis是一个**基于内存的、键值对存储数据库**。是目前最流行的键值对数据库。
+
+#Redis有什么特点
 
 相对于其他键值对数据库来说，Redis的最大的不同在于：支持多种不同数据结构的值
 
@@ -32,7 +33,9 @@ header-img: "img/post-bg-04.jpg"
 
 除此之外，Redis虽然作为一个内存数据库，其也支持**持久化**操作和**集群**部署。后面会对这些一一介绍。
 
-#为什么需要Redis
+#Redis的安装
+
+
 
 
 #参考
