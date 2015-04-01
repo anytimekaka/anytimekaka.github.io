@@ -1,0 +1,77 @@
+---
+layout:     post
+title:      "gdb使用手册"
+subtitle:   "GDB是GNU开源组织发布的一个强大的UNIX下的程序调试工具。通常，我们习惯于使用图形界面的集成开发工具，像VC、Eclipse等IDE的调试，但如果你是在UNIX平台下做软件，你会发现GDB这个调试工具有比VC、Eclipse的图形化调试器更强大的功能。"
+date:       2015-04-01 10:22:00
+author:     "anytimekaka"
+header-img: "img/post-bg-05.jpg"
+---
+
+#目录
+
+* gdb的功能
+* 示例演示
+* 使用gdb
+* 调试
+* 查看运行时数据
+* 断点
+* 查看源程序
+* 改变程序执行
+* 总结
+
+#gdb的功能
+
+1. 启动你的程序，可以按照你的自定义的要求随心所欲的运行程序。 
+2. 可让被调试的程序在你所指定的调置的断点处停住。（断点可以是条件表达式） 
+3. 当程序被停住时，可以检查此时你的程序中所发生的事。 
+4. 动态的改变你程序的执行环境。 
+
+#示例演示
+
+程序gdb_test.cpp：
+
+	#include <iostream>
+	void print_num(int);
+
+	int main(){
+        int x=10;
+        int y=20;
+        for(int i=1; i<=x; i++){
+        	std::cout <<i <<std::endl;
+        }
+        print_num(y);
+        std::cout << "Hello world!"<<std::endl;
+        return 0;
+	}
+
+	void print_num(int x){
+        std::cout <<"the arg number is: " <<x << std::endl;
+	}
+
+编译：
+
+	$ g++ -g gdb_test.cpp -o gdb_test
+
+要调试C/C++程序，需要把调试信息加到可执行文件中去，使用编译器的`-g`参数可以实现这点。
+
+启动：
+
+	$ gdb gdb_test
+
+<img src="http://anytimekaka.github.io/img/postimg/20150401104746.png"/>
+
+gdb调试过程中可以调用Linux shell程序，也可以设置断点，下图中设置了2个断点：
+
+<img src="http://anytimekaka.github.io/img/postimg/20150401110302.png"/>
+
+下面开始调试程序
+
+<img src="http://anytimekaka.github.io/img/postimg/20150401110952.png"/>
+
+#使用gdb
+#调试
+#查看运行时数据
+#断点
+#查看源程序
+#改变程序执行
+#总结
