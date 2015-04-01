@@ -141,8 +141,6 @@ gdb调试过程中可以调用Linux shell程序，也可以设置断点，下图
 
 #改变程序执行
 
-修改变量值：
-
 	(gdb) print x=20	//将x改为20，并打印
 	(gdb) set var x=30	//将x改为30，不会打印修改后的值
 	(gdb) print print_num(20)	//强制调用函数，并打印返回值
