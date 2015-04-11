@@ -7,21 +7,22 @@ author:     "anytimekaka"
 header-img: "img/post-bg-04.jpg"
 ---
 
-#目录
+#1. 目录
 
 * 什么是Redis
 * Redis有什么特点
 * Redis的安装
+* 运行、连接和使用
 * 数据结构
 * Publication/Subscription
 * Configuration
 * 参考
 
-#Redis是什么
+#2. Redis是什么
 
 简单来说，Redis是一种数据库，但是不是我们通常用的MySQL或者Oracle一类的**关系型数据库**。Redis是一个**基于内存的、键值对存储数据库**。是目前最流行的键值对数据库。
 
-#Redis有什么特点
+#3. Redis有什么特点
 
 相对于其他键值对数据库来说，Redis的最大的不同在于：支持多种不同数据结构的值
 
@@ -33,11 +34,91 @@ header-img: "img/post-bg-04.jpg"
 
 除此之外，Redis虽然作为一个内存数据库，其也支持**持久化**操作和**集群**部署。后面会对这些一一介绍。
 
-#Redis的安装
+#4. Redis的安装
+
+Redis官方只提供Linux版本，没有Windows版本。实际部署中，也都是在Linux服务器环境下，所以重点介绍Linux下的安装和配置。
+
+##4.1 Linux下安装Redis
+
+使用源文件安装：
+
+	wget http://redis.googlecode.com/files/redis-2.4.6.tar.gz
+	tar -zvxf redis-2.4.6.tar.gz
+	cd redis-2.4.6
+	make
+
+redis的版本可以自己选择。使用源码安装过程中，有可能因为长城防火墙的问题，无法获取到安装源码。这时可以使用一个代理。作者本人就创建了一个七牛存储空间用于代理。下载地址是http://7xi9yb.com1.z0.glb.clouddn.com/redis-2.8.19.tar.gz，版本：2.8.19。
+
+##4.2 Windows下安装Redis
+
+Github上有人发布Windows版本的Redis，我也测试过，能够正常使用，方便初学者使用。下载地址[https://github.com/dmajkic/redis/downloads](https://github.com/dmajkic/redis/downloads)
+
+下载之后，解压。能看到有两个文件夹，win32 & win64，根据系统情况选择需要的，现在基本都是64位机器。文件夹里面有redis-server.exe和redis-cli.exe两个关键的程序，分别表示服务器程序和客户端程序。
+
+#5. 运行、连接、使用
+
+Redis服务的启动，只需要运行redis-server即可。Windows下为redis-server.exe文件，Linux下运行./redis-server。成功运行之后，能看到一些基本信息，例如Redis使用的端口等，也能看到客户端连接提示。
+
+下图是Windows平台下运行redis服务器程序redis-server.exe。从命令行提示中我们可以看到一部分有用的信息。
+
+<img src = "http://anytimekaka.github.io/img/postimg/201504111009.PNG"/>
+
+好了！启动好了Redis服务，后面就可以来体验如何连接和使用了。
+
+##5.1 Redis初体验
+
+Redis中也有一个简单的客户端工具，redis-cli，可以方便学习和调试。如果没有修改默认设置，客户端可以自动连上服务器。
+
+下面让我们来稍微体验一下Redis，感受一下：
+下图是使用客户端redis-cli.exe，并添加了name字段。
+
+<img src = "http://anytimekaka.github.io/img/postimg/201504111011.PNG"/>
+
+从这个简单的示例中，我们也能看出，如Redis一类的NoSQL数据库与传统的关系型数据库的区别：不使用SQL语言，不以表结构存储。
+
+在初学者学习过程中，我们可以使用上述这种简单的方式进行练习。实际应用中，都是以程序调用的形式来使用。所以，后面我们编写简单的程序来访问Redis。（这种形式其实类似使用数据库驱动来访问数据库）
+
+##5.2 驱动程序访问Redis
+
+关于如何在项目中使用redis，就需要使用特定语言的客户端驱动程序了。目前，针对每种语言基本都有了redis驱动程序可以使用，有人专门做了[总结在这里](http://redis.io/clients)。
+
+此处准备编写一个简单程序（Java + C++)，用于说明程序的调用。
+
+#6. 数据结构
+
+前面的示例中，我们实际只用到了一种数据结构String。Redis提供了5种数据结构：
+
+* 字符串（String）
+* 散列（Hash）
+* 列表（List）
+* 集合（Set）
+* 分类集合（Sorted Set）
+
+在详细介绍每种数据结构之前，我们来回顾一下之前是如何使用client来设置和访问数据的：
+
+	set name James
+	get name
+
+第一节中我们就介绍过，Redis是基于**键值对**存储的。此处使用set命令向数据库中添加了"name-James"这样一对数据信息。Redis中普遍使用如下形式的命令来查询和设置数据：
+
+	command key value	//设置、添加数据
+	command key			//根据key查询
+
+注意：此处没有用set/get，这是因为：Redis使用不同的命令来管理不同的数据结构。例如对于String，使用的是get/set，而对于Hash，则使用hset/hget。
 
 
 
+# Publication/Subscription
+# Configuration
 
 #参考
+* [redis中文官方网站](http://redis.cn/)
+* [The little redis book](https://github.com/JasonLai256/the-little-redis-book/blob/master/cn/redis.md)
+* [维基百科——Redis](http://zh.wikipedia.org/wiki/Redis)
 
-[维基百科——Redis](http://zh.wikipedia.org/wiki/Redis)
+
+
+
+
+
+
