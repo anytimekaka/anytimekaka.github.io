@@ -106,12 +106,77 @@ Redis中也有一个简单的客户端工具，redis-cli，可以方便学习和
 
 注意：此处没有用set/get，这是因为：Redis使用不同的命令来管理不同的数据结构。例如对于String，使用的是get/set，而对于Hash，则使用hset/hget。
 
+下面分别介绍每种数据结构。
 
+##6.1 字符串
+
+字符串是Redis中最基本的数据结构。除了之前介绍的set/get之外，还有一些常用的操作：
+
+	strlen name		//获取name值的长度
+	getrange name 2 5	//获取2-5区间内的value值
+	append name " Carl"		//在name后面添加字符串
+
+字符串的是最常用的数据结构，操作命令有很多，这里不一一列举说明。详细可参考[Redis文档--String](http://redis.io/commands#string)
+
+##6.2 散列（Hash）
+
+散列数据数据结构本身就是以一种键值对的形式保存数据，与String的区别在于：其对String做了一层封装，使得一个散列对象可以保存一组String数据。（官方文档中引入了一个Field的概念，即指散列中的键）
+
+	hset user name James
+	hset user age 25
+
+散列user中保存了两个field：name和age，以及对应的value。一些其他的操作：
+
+	hgetall user		//获取user中的所有元素
+	hkeys user			//获取user中所有field
+	hdel user age		//删除user中age field
+
+关于散列的更多命令说明，请参考[Redis文档--散列](http://redis.io/commands#hash)。
+
+##6.3 列表（List）
+
+列表结构存储的是一组值，列表可以维护值的顺序，提供**基于索引**的操作。
+
+	lpush citys shanghai
+	lpush citys beijing
+	lpop citys	//result:beijing
+	//这两个命令一起使用，使得List具有栈的特征
+
+	rpush citys guangzhou
+	lindex citys 3	//根据index获取值
+	
+Redis文档中说，自2.4版本之后，lpush等命令支持批量插入，本人在做以上测试的过程中，使用的是Windows2.4版本，并不支持批量插入，Linux平台下应该没有这样的问题。
+
+关于列表的更多命令说明，请参考[Redis文档--列表](http://redis.io/commands#list)
+
+##6.4 集合（Set）
+
+集合用于存储一组**不重复**的值，Redis提供了很多基于集合的操作，例如交集和并集等。
+
+	sadd countrys American China
+	sismember countrys China	//判断是否是集合成员 O(1)时间
+	scard countrys		//集合中元素数量
+	sinter oneSet anotherSet	//获取两个集合的交集
+
+对于需要根据值进行操作的地方，或者需要求交集和并集的情况下，集合是很好的选择。关于集合的更多命令说明，请参考[Redis文档--集合](http://redis.io/commands#set)
+
+##6.5 分类集合（Sorted Set）
+
+分类集合相对复杂，其与集合的唯一区别就是：为每个集合中的成员添加了一个**score标记**。可以根据标记对集合元素进行**排序和秩划分**。
+
+	zadd points 78 Carl 92 Xiaoming 89 James
+	zcount points 80 90	//[80,90)之间的元素数量
+	zrank points James	//result:1 默认从小到大排序，第一个为0
+
+秩：元素在排序好的集合中的次序。
+
+关于分类集合的更多命令说明，请参考[Redis文档--分类集合](http://redis.io/commands#sorted_set)
 
 # Publication/Subscription
 # Configuration
 
 #参考
+* [redis command](http://redis.io/command#)
 * [redis中文官方网站](http://redis.cn/)
 * [The little redis book](https://github.com/JasonLai256/the-little-redis-book/blob/master/cn/redis.md)
 * [维基百科——Redis](http://zh.wikipedia.org/wiki/Redis)
