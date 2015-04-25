@@ -1,7 +1,7 @@
 ---
 layout:     post
-title:      "Redis入门介绍"
-subtitle:   "本文适用于Redis初学者，告诉读者：什么是Redis，为什么需要Redis，Redis有哪些特点，Redis的安装（Windows，Linux，OS），数据结构，Publication/Subscription，Configuration等"
+title:      "Redis初识"
+subtitle:   "本文适用于Redis初学者，告诉读者：什么是Redis，为什么需要Redis，Redis有哪些特点，Redis的安装（Windows，Linux，OS），数据结构等"
 date:       2015-03-26 22:36:00
 author:     "anytimekaka"
 header-img: "img/post-bg-04.jpg"
@@ -14,8 +14,6 @@ header-img: "img/post-bg-04.jpg"
 * Redis的安装
 * 运行、连接和使用
 * 数据结构
-* Publication/Subscription
-* Configuration
 * 参考
 
 #2. Redis是什么
@@ -171,9 +169,6 @@ Redis文档中说，自2.4版本之后，lpush等命令支持批量插入，本�
 秩：元素在排序好的集合中的次序。
 
 关于分类集合的更多命令说明，请参考[Redis文档--分类集合](http://redis.io/commands#sorted_set)
-
-# Publication/Subscription
-# Configuration
 
 #参考
 * [redis command](http://redis.io/command#)
