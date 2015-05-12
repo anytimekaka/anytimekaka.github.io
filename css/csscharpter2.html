@@ -1,58 +1,89 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <title>css第二章</title>
 
-    <link rel="canonical" href="/">
+    <script src="jquery.min.js"></script>
+    <script src="unslider.js"></script>
+    
+<style type="text/css">
+    a:link {color:black;}
+    a:visited {color:orange;}
+    a:hover {text-decoration: none;}
+    a:active {color: red;}
+    p:hover {background-color:gray;}
+    input:focus {border: 3px solid blue;}
+    #moreinfo:target {background-color: #eee;}
+    ol.result li:first-child {color:blue;}
 
-    <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    p::first-letter {font-size: 300%;}
+    p.age::before {content: "Age: ";}
+    p.age::after {content:" years";}
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/clean-blog.css">
-
-    <!-- Pygments Github CSS -->
-    <link rel="stylesheet" href="/css/syntax.css">
-
-    <!-- Custom Fonts -->
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-
-    <!-- highlight css-->
-    <link href="http://cdn.bootcss.com/highlight.js/8.0/styles/monokai_sublime.min.css" rel="stylesheet">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
+    .banner { 
+        position: relative; 
+        overflow: auto; 
+        width: 200px !important;
+    }
+    .banner ul { 
+        width: 1000px !important;
+    }
+    .banner li { 
+        list-style: none; 
+    }
+    .banner ul li { 
+        float: left;
+        height: 50px !important;
+        width: 200px !important;
+    }
+</style>
 </head>
 
-
 <body>
+    <a href="#" class="unslider-arrow prev">Previous slide</a>
+    <a href="#" class="unslider-arrow next">Next slide</a>
+     <div class="banner">
+        <ul>
+            <li>one</li>
+            <li>two</li>
+            <li>three</li>
+            <li>four</li>
+            <li>five</li>
+        </ul>
+    </div>
+    <a href="http://www.baidu.com">www.baidu.com</a><br/>
+    <p>hello world</p><br/>
+    <input type="text" name="username"></input><br/>
 
+    <a href="#moreinfo">Get more information? Click here!</a>
 
+    <p id="moreinfo">Some detail info will be shown here.</p>
 
-<!-- jQuery -->
-<script src="/js/jquery.min.js "></script>
+    <ol class="result">
+        <li>My fast pony</li>
+        <li>My fast pony</li>
+        <li>My fast pony</li>
+    </ol>
 
-<!-- Bootstrap Core JavaScript -->
-<script src="/js/bootstrap.min.js "></script>
+    <p class="age">25</p>
+<script type="text/javascript">
+    /*$(function() {
+        $('.banner').unslider();
+    });*/
 
-<!-- Custom Theme JavaScript -->
-<script src="/js/clean-blog.min.js "></script>
+    var unslider = $('.banner').unslider();
 
-<!-- highlight JS -->
-<script src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script>
+    $('.unslider-arrow').click(function() {
+        var fn = this.className.split(' ')[1];
+        /*unslider.data('unslider').prev();*/
+        //  Either do unslider.data('unslider').next() or .prev() depending on the className
+        unslider.data('unslider')[fn]();
+    });
+</script>
+
 </body>
-
 </html>
