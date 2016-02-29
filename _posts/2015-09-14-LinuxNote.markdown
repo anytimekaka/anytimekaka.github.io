@@ -7,8 +7,6 @@ author:     "anytimekaka"
 header-img: "img/post-bg-05.jpg"
 ---
 
-[TOC]
-
 #目录
 
 * gdb的功能
