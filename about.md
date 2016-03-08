@@ -5,6 +5,6 @@ permalink: /about/
 public: true
 ---
 
-Welcome to this website!
-
-> This website is using [laobubu](http://laobubu.net)'s theme: [EasyBook](https://github.com/laobubu/jekyll-theme-EasyBook)
+* 姓名：王贵生
+* 微信：anytimekaka
+* 邮箱：gswang001@gmail.com
