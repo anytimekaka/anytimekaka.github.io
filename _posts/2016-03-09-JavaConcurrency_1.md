@@ -17,6 +17,7 @@ permalink: /archivers/javaconcurrency01
 信号量是在多线程环境中，线程间传递信号的一种方式。
 
 ### 简单的Semaphore实现
+
 ```java
 public class Semaphore {
 private boolean signal = false;   //使用signal可以避免信号丢失
@@ -31,7 +32,9 @@ public synchronized void release() throws InterruptedException{
 	}
 }
 ```
-使用场景：
+
+使用场景
+
 ```java
 Semaphore semaphore = new Semaphore();
 SendingThread sender = new SendingThread(semaphore)；
@@ -68,6 +71,7 @@ public class RecevingThread {
 
 ### 可计数的Semaphore
 上面提到的Semaphore的简单实现并没有计算通过调用take方法所产生信号的数量。可以把它改造成具有计数功能的Semaphore。
+
 ```java
 public class CountingSemaphore {
 	private int signals = 0;
@@ -82,8 +86,11 @@ public synchronized void release() throws InterruptedException{
 	}
 }
 ```
+
 ### 有上限的Semaphore
-可以将上面的CountingSemaphore改造成一个信号数量有上限的BoundedSemaphore：
+
+可以将上面的CountingSemaphore改造成一个信号数量有上限的BoundedSemaphore
+
 ```java
 public class BoundedSemaphore {
 	private int signals = 0;
@@ -105,9 +112,11 @@ public class BoundedSemaphore {
 	}
 }
 ```
+
 在BoundedSemaphore中，当已经产生的信号数量达到了上限，take方法将阻塞新的信号产生请求，直到某个线程调用release方法后，被阻塞于take方法的线程才能传递自己的信号。
 
 ### Java内置的Semaphore
+
 java.util.concurrent包中有Semaphore的实现，可以设置参数，控制同时访问的个数。
 下面的Demo中申明了一个只有5个许可的Semaphore，而有20个线程要访问这个资源，通过acquire()和release()获取和释放访问许可。
 
@@ -140,6 +149,7 @@ exec.shutdown();
 互斥量：提供对资源的独占访问，只能为0/1，如果某一个资源同时只能允许一个访问者对其访问，可以使用互斥量控制线程对其访问。
 
 互斥量实现：
+
 ```java
 public class Mutex {
 private boolean isLocked = false;
@@ -155,9 +165,11 @@ public synchronized void unlock() throws InterruptedException{
 	}
 }
 ```
+
 在Mutex中，我们添加了一个signal用于保存信号。
 
 将互斥量当作**锁**来使用：
+
 ```java
 Mutex mutex = new Mutex();
 mutex.lock();
@@ -165,9 +177,11 @@ mutex.lock();
 //临界区
 mutex.unlock();
 ```
+
 互斥量的加锁和解锁必须由同一个线程分别对应使用。
 
 ## 参考
+
 [信号量-并发编程网](http://ifeve.com/semaphore/)
 [信号量与互斥量-博客园](http://www.cnblogs.com/diyingyun/archive/2011/12/04/2275229.html)
 [Java信号量-博客园](http://www.cnblogs.com/whgw/archive/2011/09/29/2195555.html)
