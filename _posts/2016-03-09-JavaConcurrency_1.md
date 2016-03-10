@@ -182,6 +182,6 @@ mutex.unlock();
 
 ## 参考
 
-[信号量-并发编程网](http://ifeve.com/semaphore/)
-[信号量与互斥量-博客园](http://www.cnblogs.com/diyingyun/archive/2011/12/04/2275229.html)
-[Java信号量-博客园](http://www.cnblogs.com/whgw/archive/2011/09/29/2195555.html)
+* [信号量-并发编程网](http://ifeve.com/semaphore/)
+* [信号量与互斥量-博客园](http://www.cnblogs.com/diyingyun/archive/2011/12/04/2275229.html)
+* [Java信号量-博客园](http://www.cnblogs.com/whgw/archive/2011/09/29/2195555.html)
