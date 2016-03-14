@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "Java并发编程——信号量与互量"
+title:      "Java并发编程——信号量与互斥量"
 date:       2016-03-09 20:00:00
 categories: Java
 permalink: /archivers/javaconcurrency01
