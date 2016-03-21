@@ -3,7 +3,7 @@ layout:     post
 title:      "Java并发编程——信号量与互斥量"
 date:       2016-03-09 20:00:00
 categories: Java
-permalink: /archivers/javaconcurrency01
+permalink: /archivers/semaphoreandmutex
 ---
 
 信号量用于线程同步，互斥量用户保护资源的互斥访问。

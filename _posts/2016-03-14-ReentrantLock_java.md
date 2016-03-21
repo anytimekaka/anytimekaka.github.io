@@ -3,7 +3,7 @@ layout:     post
 title:      "Java并发编程——锁与可重入锁"
 date:       2016-03-14 23:00:00
 categories: Java
-permalink: /archivers/hehe
+permalink: /archivers/ReentrantLock
 ---
 
 上一篇文章中讲述了信号量和互斥量，其中互斥量一般用于保证对于资源的互斥访问，和锁的本质一样。本文讲述简单锁的实现和可重入锁的基本原理。
