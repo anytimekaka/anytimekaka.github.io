@@ -3,7 +3,7 @@ layout: post
 title:  "Java基础笔记"
 date:   2017-10-11 23:00:00
 categories: Java
-permalink: /archivers/basicJava
+permalink: /archivers/java-basic
 ---
 
 # 面向对象
