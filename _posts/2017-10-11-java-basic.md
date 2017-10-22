@@ -6,8 +6,6 @@ categories: Java
 permalink: /archivers/java-basic
 ---
 
-hhh
-
 # 面向对象
 
 优点：
